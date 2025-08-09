@@ -37,3 +37,16 @@ function toISODateString(date) {
 function getCrewDetails(crewIds = []) {
     return crewIds.map(id => adminConfig.crewMembers.find(m => m.id === id)).filter(Boolean);
 }
+
+/**
+ * Vérifie si deux objets Date correspondent au même jour (année, mois, jour).
+ * @param {Date} d1 La première date.
+ * @param {Date} d2 La deuxième date.
+ * @returns {boolean} Vrai si les dates sont le même jour.
+ */
+function isSameDay(d1, d2) {
+    if (!d1 || !d2) return false;
+    return d1.getFullYear() === d2.getFullYear() &&
+           d1.getMonth() === d2.getMonth() &&
+           d1.getDate() === d2.getDate();
+}
