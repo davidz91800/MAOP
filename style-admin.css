@@ -1,0 +1,71 @@
+/* FILE: style-admin.css */
+
+.admin-panel-content {
+    background-color: #fff;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 1200px;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.admin-panel-header {
+    padding: 15px 25px;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+.admin-panel-header h2 { margin: 0; font-size: 1.6em; }
+
+.admin-panel-body { display: flex; flex-grow: 1; overflow: hidden; }
+
+.admin-nav {
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+    padding: 10px 0;
+    flex-shrink: 0;
+}
+
+.admin-nav-tab {
+    background: none; border: none; padding: 15px 20px; font-size: 1em;
+    text-align: left; cursor: pointer; border-left: 3px solid transparent; width: 100%;
+}
+.admin-nav-tab:hover { background-color: #e9ecef; }
+.admin-nav-tab.active { font-weight: bold; color: #007bff; border-left-color: #007bff; }
+
+.admin-main-content { flex-grow: 1; padding: 25px; overflow-y: auto; }
+.admin-tab-content { display: none; }
+.admin-tab-content.active { display: block; }
+.admin-tab-content h3 { margin-top: 0; font-size: 1.4em; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; }
+
+.admin-list { list-style-type: none; padding: 0; }
+.admin-list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #f0f0f0; }
+.admin-list-item:nth-child(odd) { background-color: #f8f9fa; }
+.admin-list-item span { font-size: 1.1em; }
+.admin-list-item-buttons { display: flex; gap: 8px; }
+
+.admin-delete-btn, .admin-save-btn, .admin-cancel-btn { padding: 5px 10px; font-size: 0.9em; color: white; border: none; border-radius: 5px; cursor: pointer; }
+.admin-delete-btn { background-color: #dc3545; }
+.admin-save-btn { background-color: #28a745; }
+.admin-cancel-btn { background-color: #6c757d; }
+
+.admin-add-form { margin-top: 25px; padding-top: 20px; border-top: 2px solid #eee; display: flex; align-items: center; gap: 15px; }
+.admin-add-form input[type="text"] { flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em; }
+.admin-add-btn { padding: 8px 18px; font-size: 1em; font-weight: bold; color: white; background-color: #28a745; border: none; border-radius: 5px; cursor: pointer; }
+
+.admin-import-section { display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid #eee; }
+.admin-import-section label { font-weight: bold; font-size: 1.1em; }
+#crew-import-textarea { width: 100%; box-sizing: border-box; font-family: monospace; font-size: 1em; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+#import-crew-btn { align-self: flex-start; }
+.admin-crew-list-section h4 { font-size: 1.2em; margin-bottom: 15px; }
+
+.admin-list-item .admin-edit-input { padding: 5px; font-size: 0.95em; border-radius: 4px; border: 1px solid #007bff; margin: 0 4px; }
+input.admin-edit-input.name { width: 120px; }
+select.admin-edit-input.grade { width: 70px; }
+select.admin-edit-input.function { width: 80px; }
