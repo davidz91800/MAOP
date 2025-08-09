@@ -11,9 +11,22 @@ document.addEventListener('DOMContentLoaded', () => {
 function setupEventListeners() {
     // === Navigation principale ===
     document.getElementById('add-task-btn').addEventListener('click', openModal);
-    document.getElementById('prev-day-btn').addEventListener('click', () => { currentDate.setDate(currentDate.getDate() - 1); renderAll(); });
-    document.getElementById('next-day-btn').addEventListener('click', () => { currentDate.setDate(currentDate.getDate() + 1); renderAll(); });
+    document.getElementById('prev-day-btn').addEventListener('click', () => {
+        currentDate.setDate(currentDate.getDate() - (isWeekView ? 7 : 1));
+        renderAll();
+    });
+    document.getElementById('next-day-btn').addEventListener('click', () => {
+        currentDate.setDate(currentDate.getDate() + (isWeekView ? 7 : 1));
+        renderAll();
+    });
     document.getElementById('today-btn').addEventListener('click', () => { currentDate = new Date(); renderAll(); });
+    const viewToggleBtn = document.getElementById('view-toggle-btn');
+    viewToggleBtn.addEventListener('click', () => {
+        isWeekView = !isWeekView;
+        document.body.classList.toggle('week-mode', isWeekView);
+        viewToggleBtn.textContent = isWeekView ? 'Vue jour' : 'Vue semaine';
+        renderAll();
+    });
     document.getElementById('sunrise-input').addEventListener('change', updateNightOverlay);
     document.getElementById('sunset-input').addEventListener('change', updateNightOverlay);
 

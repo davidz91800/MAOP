@@ -200,6 +200,31 @@
 .resize-handle { position: absolute; right: 0; top: 0; width: 8px; height: 100%; cursor: ew-resize; z-index: 2; }
 .task.resizing { opacity: 0.7; z-index: 5; }
 
+/* === Semaine === */
+body.week-mode #hour-grid-wrapper,
+body.week-mode #tracks-container {
+    display: flex;
+}
+
+body.week-mode #hour-grid-wrapper .hour-grid,
+body.week-mode #tracks-container .day-column {
+    flex: 1;
+    min-width: 400px;
+}
+
+body.week-mode #tracks-container,
+body.week-mode #hour-grid-wrapper {
+    overflow-x: auto;
+}
+
+.day-header {
+    background-color: #e9ecef;
+    text-align: center;
+    padding: 0.3rem 0;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+}
+
 #task-tooltip {
     position: absolute;
     background-color: rgba(255, 255, 255, 0.95);
