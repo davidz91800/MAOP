@@ -108,6 +108,7 @@ function handleCancelTask() {
     }
     closeActionModal();
     renderPlanning();
+    saveStateToLocalStorage();
 }
 
 /** Gère le clic sur le bouton Supprimer une tâche. */
@@ -120,4 +121,5 @@ function handleDeleteTask() {
     }
     closeActionModal();
     renderPlanning();
+    saveStateToLocalStorage();
 }

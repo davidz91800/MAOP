@@ -3,6 +3,7 @@
 
 /** Initialise l'application une fois le DOM chargé. */
 document.addEventListener('DOMContentLoaded', () => {
+    loadStateFromLocalStorage();
     setupEventListeners();
     renderAll();
 });
@@ -14,8 +15,14 @@ function setupEventListeners() {
     document.getElementById('prev-day-btn').addEventListener('click', () => { currentDate.setDate(currentDate.getDate() - 1); renderAll(); });
     document.getElementById('next-day-btn').addEventListener('click', () => { currentDate.setDate(currentDate.getDate() + 1); renderAll(); });
     document.getElementById('today-btn').addEventListener('click', () => { currentDate = new Date(); renderAll(); });
-    document.getElementById('sunrise-input').addEventListener('change', updateNightOverlay);
-    document.getElementById('sunset-input').addEventListener('change', updateNightOverlay);
+    document.getElementById('sunrise-input').addEventListener('change', () => {
+        updateNightOverlay();
+        saveStateToLocalStorage();
+    });
+    document.getElementById('sunset-input').addEventListener('change', () => {
+        updateNightOverlay();
+        saveStateToLocalStorage();
+    });
 
     // === Sauvegarde / Chargement JSON ===
     document.getElementById('save-json-btn').addEventListener('click', handleSaveJSON);

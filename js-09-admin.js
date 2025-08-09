@@ -48,6 +48,7 @@ function renderAdminList(container, dataArray, itemLabel) {
                 const index = dataArray.indexOf(item);
                 if (index > -1) dataArray.splice(index, 1);
                 renderAdminList(container, dataArray, itemLabel);
+                saveStateToLocalStorage();
             }
         };
         listItem.appendChild(deleteBtn);
@@ -70,6 +71,7 @@ function renderAdminList(container, dataArray, itemLabel) {
             dataArray.push(value);
             dataArray.sort();
             renderAdminList(container, dataArray, itemLabel);
+            saveStateToLocalStorage();
         } else if (dataArray.includes(value)) {
             alert(`"${value}" existe déjà.`);
         }
@@ -131,6 +133,7 @@ function createCrewAdminRow(member, mainContainer) {
             const index = adminConfig.crewMembers.findIndex(m => m.id === member.id);
             if (index > -1) adminConfig.crewMembers.splice(index, 1);
             renderCrewAdminTab(mainContainer);
+            saveStateToLocalStorage();
         }
     };
     buttonsContainer.appendChild(editBtn);
@@ -186,6 +189,7 @@ function switchToEditMode(listItem, member, mainContainer) {
             memberToUpdate.func = funcSelect.value;
         }
         renderCrewAdminTab(mainContainer);
+        saveStateToLocalStorage();
     };
     const cancelBtn = document.createElement('button');
     cancelBtn.className = 'admin-cancel-btn';
@@ -213,6 +217,7 @@ function importCrewFromText(text) {
     if (addedCount > 0) {
         alert(`${addedCount} membre(s) d'équipage ajouté(s) avec succès !`);
         document.getElementById('crew-import-textarea').value = '';
+        saveStateToLocalStorage();
     } else {
         alert("Aucun nouveau membre d'équipage à importer.");
     }

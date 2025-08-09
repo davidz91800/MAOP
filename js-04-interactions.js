@@ -62,6 +62,7 @@ function addTimelineDropHandling(timelineGrid) {
         task.startDateTime = toLocalISOString(newStartDate);
         task.endDateTime = toLocalISOString(newEndDate);
         renderPlanning();
+        saveStateToLocalStorage();
     });
 }
 
@@ -104,6 +105,7 @@ function addResizeFunctionality(blockDiv, taskId, timelineDiv) {
             
             taskToResize.endDateTime = toLocalISOString(newEndDate);
             renderPlanning();
+            saveStateToLocalStorage();
         };
 
         document.addEventListener('mousemove', onMouseMove);

@@ -79,3 +79,60 @@ function handleLoadJSON(event) {
     // Réinitialise l'input pour permettre de recharger le même fichier
     event.target.value = '';
 }
+
+// ============================================================================
+// === LOCALSTORAGE PERSISTENCE
+// ============================================================================
+
+const LOCAL_STORAGE_KEY = 'maopPlanningState';
+
+/**
+ * Sauvegarde l'état actuel de l'application dans le localStorage.
+ */
+function saveStateToLocalStorage() {
+    try {
+        const stateToSave = {
+            tasksData: tasksData,
+            adminConfig: adminConfig,
+            sunTimes: {
+                sunrise: document.getElementById('sunrise-input').value,
+                sunset: document.getElementById('sunset-input').value,
+            }
+        };
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(stateToSave));
+        console.log("État sauvegardé dans le localStorage.");
+    } catch (error) {
+        console.error("Erreur lors de la sauvegarde dans le localStorage:", error);
+    }
+}
+
+/**
+ * Charge l'état de l'application depuis le localStorage, si disponible.
+ */
+function loadStateFromLocalStorage() {
+    try {
+        const savedStateJSON = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (savedStateJSON) {
+            const loadedState = JSON.parse(savedStateJSON);
+
+            if (loadedState.tasksData && loadedState.adminConfig) {
+                tasksData = loadedState.tasksData;
+                adminConfig = loadedState.adminConfig;
+
+                if (loadedState.sunTimes) {
+                    document.getElementById('sunrise-input').value = loadedState.sunTimes.sunrise;
+                    document.getElementById('sunset-input').value = loadedState.sunTimes.sunset;
+                }
+
+                console.log("État chargé depuis le localStorage.");
+                return true; // Indique que l'état a été chargé
+            }
+        }
+    } catch (error) {
+        console.error("Erreur lors du chargement depuis le localStorage:", error);
+        // On peut supprimer l'entrée si elle est corrompue
+        localStorage.removeItem(LOCAL_STORAGE_KEY);
+    }
+    console.log("Aucun état valide trouvé dans le localStorage, utilisation des données par défaut.");
+    return false; // Indique qu'aucun état n'a été chargé
+}

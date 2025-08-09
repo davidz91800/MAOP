@@ -55,6 +55,7 @@ function handleFormSubmit(event) {
     
     renderPlanning();
     closeModal();
+    saveStateToLocalStorage(); // <-- AJOUT DE LA SAUVEGARDE AUTOMATIQUE
 }
 
 /** Remplit le menu déroulant des types de tâches. */
