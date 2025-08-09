@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planning Opérationnel Dynamique</title>
+    <link rel="stylesheet" href="style-theme.css">
+    <link rel="stylesheet" href="style-base-new.css">
+    <link rel="stylesheet" href="style-planning-new.css">
+    <link rel="stylesheet" href="style-modals-new.css">
+    <link rel="stylesheet" href="style-admin-new.css">
+</head>
+<body>
+
+    <header id="planning-header">
+        <h1>Planning Opérationnel</h1>
+
+        <!-- Conteneur pour les boutons d'action principaux -->
+        <div class="header-actions-container">
+            <button id="save-json-btn" title="Sauvegarder en JSON">💾 Sauvegarder</button>
+            <button id="load-json-btn" title="Charger un JSON">📂 Charger</button>
+            <input type="file" id="import-json-input" accept=".json" style="display: none;">
+            <button id="export-pdf-btn" title="Exporter en PDF">📄 Exporter PDF</button>
+            <button id="admin-panel-btn" title="Panneau d'administration">⚙️ Admin</button>
+            <button id="theme-toggle-btn" title="Changer de thème">☀️</button>
+        </div>
+
+        <!-- ÉLÉMENTS POUR LES HEURES DE SOLEIL -->
+        <div id="sun-times-container">
+            <label for="sunrise-input">Lever 🌅</label>
+            <input type="time" id="sunrise-input" value="06:30">
+            <label for="sunset-input">Coucher 🌇</label>
+            <input type="time" id="sunset-input" value="21:00">
+        </div>
+
+        <!-- Conteneur pour la navigation par date -->
+        <div id="date-navigation">
+            <button id="prev-day-btn">< Précédent</button>
+            <button id="today-btn">Aujourd'hui</button>
+            <h2 id="date-display"></h2>
+            <button id="next-day-btn">Suivant ></button>
+            <button id="calendar-btn">📅</button>
+            <div id="calendar-modal" class="hidden">
+                <!-- Le calendrier sera généré par JS ici -->
+            </div>
+        </div>
+    </header>
+
+    <div class="planning-container">
+        <div id="time-header-container">
+            <div id="header-actions">
+                <button id="add-task-btn">Ajouter</button>
+            </div>
+            <div id="hour-grid-wrapper">
+                <!-- La grille horaire sera injectée ici par le JS -->
+            </div>
+        </div>
+        <div id="tracks-container">
+            <!-- Les pistes et les tâches seront générées ici -->
+        </div>
+    </div>
+
+    <!-- Modale de Confirmation Générique -->
+    <div id="confirm-modal" class="modal-overlay hidden">
+        <div class="modal-content" style="max-width: 450px;">
+            <div class="modal-header">
+                <h2 id="confirm-modal-title">Confirmation</h2>
+                <button id="close-confirm-modal-btn" class="close-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-modal-text">Êtes-vous sûr ?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm-modal-cancel-btn" type="button">Annuler</button>
+                <button id="confirm-modal-ok-btn" type="button">Confirmer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fenêtre modale pour le formulaire -->
+    <div id="task-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Créer une nouvelle tâche</h2>
+                <button id="close-modal-btn" class="close-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="task-form">
+                    <div class="form-group">
+                        <label for="task-type">Type de tâche</label>
+                        <select id="task-type" name="type" required>
+                            <!-- Les options seront générées par JS -->
+                        </select>
+                    </div>
+                    <div id="dynamic-form-fields"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-btn" type="button">Annuler</button>
+                <button id="save-task-btn" type="submit" form="task-form">Sauvegarder</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale pour les actions sur une tâche -->
+    <div id="task-action-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="action-modal-title">Actions pour la tâche</h2>
+                <button id="close-action-modal-btn" class="close-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <p>Que souhaitez-vous faire ?</p>
+            </div>
+            <div class="modal-footer" id="action-modal-footer">
+                <!-- Les boutons seront ajoutés par JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale pour l'export PDF -->
+    <div id="pdf-export-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Exporter le planning en PDF</h2>
+                <button id="close-export-modal-btn" class="close-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <p>Veuillez sélectionner la plage de dates à exporter.</p>
+                <form id="pdf-export-form">
+                    <div class="form-group">
+                        <label for="export-start-date">Date de début</label>
+                        <input type="date" id="export-start-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="export-end-date">Date de fin</label>
+                        <input type="date" id="export-end-date" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-export-btn" type="button">Annuler</button>
+                <button id="generate-pdf-btn" type="submit" form="pdf-export-form">Générer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale pour le panneau d'administration -->
+    <div id="admin-panel-modal" class="modal-overlay hidden">
+        <div class="admin-panel-content">
+            <div class="admin-panel-header">
+                <h2>Panneau d'Administration</h2>
+                <button id="close-admin-panel-btn" class="close-btn">×</button>
+            </div>
+            <div class="admin-panel-body">
+                <nav class="admin-nav">
+                    <button class="admin-nav-tab active" data-tab="tab-aircraft">Avions</button>
+                    <button class="admin-nav-tab" data-tab="tab-tasks">Tâches de vol</button>
+                    <button class="admin-nav-tab" data-tab="tab-configs">Configurations</button>
+                    <button class="admin-nav-tab" data-tab="tab-areas">Zones de travail</button>
+                    <button class="admin-nav-tab" data-tab="tab-equipments">Équipements</button>
+                    <button class="admin-nav-tab" data-tab="tab-crew">Équipages</button>
+                </nav>
+                <main class="admin-main-content">
+                    <div id="tab-aircraft" class="admin-tab-content active"></div>
+                    <div id="tab-tasks" class="admin-tab-content"></div>
+                    <div id="tab-configs" class="admin-tab-content"></div>
+                    <div id="tab-areas" class="admin-tab-content"></div>
+                    <div id="tab-equipments" class="admin-tab-content"></div>
+                    <div id="tab-crew" class="admin-tab-content"></div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <script src="jspdf.umd.min.js"></script>
+    <script src="html2canvas.min.js"></script>
+
+    <!-- Scripts de l'application divisés -->
+    <script src="js-01-config.js"></script>
+    <script src="js-02-utils.js"></script>
+    <script src="js-03-render-planning.js"></script>
+    <script src="js-04-interactions.js"></script>
+    <script src="js-05-modals-form.js"></script>
+    <script src="js-06-modals-actions-new.js"></script>
+    <script src="js-07-pdf-export.js"></script>
+    <script src="js-08-io.js"></script>
+    <script src="js-09-admin-new.js"></script>
+    <script src="js-10-main.js"></script>
+    <script src="js-11-theme.js"></script>
+    <script src="js-12-confirm-modal.js"></script>
+
+    <div id="task-tooltip" class="hidden"></div>
+
+</body>
+</html>

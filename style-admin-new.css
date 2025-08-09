@@ -1,0 +1,159 @@
+/* FILE: style-admin-new.css */
+
+.admin-panel-content {
+    background-color: var(--c-bg-container);
+    border-radius: 8px;
+    width: 80%;
+    max-width: 1200px;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 5px 20px var(--c-shadow);
+    border: 1px solid var(--c-border-secondary);
+}
+
+.admin-panel-header {
+    padding: 15px 25px;
+    border-bottom: 1px solid var(--c-border-secondary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+.admin-panel-header h2 { margin: 0; font-size: 1.6em; }
+
+.admin-panel-body { display: flex; flex-grow: 1; overflow: hidden; }
+
+.admin-nav {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--c-bg-alt);
+    border-right: 1px solid var(--c-border-secondary);
+    padding: 10px 0;
+    flex-shrink: 0;
+}
+
+.admin-nav-tab {
+    background: none;
+    border: none;
+    padding: 15px 20px;
+    font-size: 1em;
+    text-align: left;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    width: 100%;
+    color: var(--c-text-primary);
+    transition: background-color 0.2s, color 0.2s;
+}
+.admin-nav-tab:hover { background-color: var(--c-bg-header); }
+.admin-nav-tab.active {
+    font-weight: bold;
+    color: var(--c-accent-primary);
+    border-left-color: var(--c-accent-primary);
+    background-color: rgba(var(--c-accent-primary-rgb), 0.1);
+}
+
+.admin-main-content {
+    flex-grow: 1;
+    padding: 25px;
+    overflow-y: auto;
+    background-color: var(--c-bg-body);
+}
+.admin-tab-content { display: none; }
+.admin-tab-content.active { display: block; }
+.admin-tab-content h3 {
+    margin-top: 0;
+    font-size: 1.4em;
+    color: var(--c-text-primary);
+    border-bottom: 2px solid var(--c-border-light);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.admin-list { list-style-type: none; padding: 0; }
+.admin-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--c-border-secondary);
+}
+.admin-list-item:nth-child(odd) { background-color: var(--c-bg-alt); }
+.admin-list-item span { font-size: 1.1em; }
+.admin-list-item-buttons { display: flex; gap: 8px; }
+
+.admin-delete-btn, .admin-save-btn, .admin-cancel-btn {
+    padding: 5px 10px;
+    font-size: 0.9em;
+    color: var(--c-text-on-accent);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.admin-delete-btn { background-color: var(--c-btn-danger); }
+.admin-save-btn { background-color: var(--c-btn-success); }
+.admin-cancel-btn { background-color: var(--c-btn-secondary); }
+
+.admin-add-form {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 2px solid var(--c-border-light);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.admin-add-form input[type="text"] {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid var(--c-border-primary);
+    border-radius: 4px;
+    font-size: 1em;
+    background-color: var(--c-bg-container);
+    color: var(--c-text-primary);
+}
+.admin-add-btn {
+    padding: 8px 18px;
+    font-size: 1em;
+    font-weight: bold;
+    color: var(--c-text-on-accent);
+    background-color: var(--c-btn-success);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.admin-import-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--c-border-light);
+}
+.admin-import-section label { font-weight: bold; font-size: 1.1em; }
+#crew-import-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: monospace;
+    font-size: 1em;
+    padding: 10px;
+    border: 1px solid var(--c-border-primary);
+    border-radius: 4px;
+    background-color: var(--c-bg-container);
+    color: var(--c-text-primary);
+}
+#import-crew-btn { align-self: flex-start; }
+.admin-crew-list-section h4 { font-size: 1.2em; margin-bottom: 15px; }
+
+.admin-list-item .admin-edit-input {
+    padding: 5px;
+    font-size: 0.95em;
+    border-radius: 4px;
+    border: 1px solid var(--c-accent-primary);
+    margin: 0 4px;
+    background-color: var(--c-bg-body);
+    color: var(--c-text-primary);
+}
+input.admin-edit-input.name { width: 120px; }
+select.admin-edit-input.grade { width: 70px; }
+select.admin-edit-input.function { width: 80px; }

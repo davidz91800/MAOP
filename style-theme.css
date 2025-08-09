@@ -1,0 +1,58 @@
+:root {
+    /* Thème Clair (Défaut) */
+    --c-bg-body: #f0f2f5;
+    --c-bg-container: #fff;
+    --c-bg-header: #e9ecef;
+    --c-bg-alt: #f8f9fa;
+    --c-text-primary: #212529;
+    --c-text-secondary: #555;
+    --c-border-primary: #ccc;
+    --c-border-secondary: #dee2e6;
+    --c-border-light: #eee;
+    --c-accent-primary: #007bff;
+    --c-accent-primary-hover: #0056b3;
+    --c-btn-success: #28a745;
+    --c-btn-success-hover: #218838;
+    --c-btn-danger: #dc3545;
+    --c-btn-danger-hover: #c82333;
+    --c-btn-warning: #ffc107;
+    --c-btn-warning-hover: #e0a800;
+    --c-btn-secondary: #6c757d;
+    --c-btn-secondary-hover: #5a6268;
+    --c-text-on-accent: #fff;
+    --c-text-on-warning: #000;
+    --c-modal-overlay: rgba(0, 0, 0, 0.6);
+    --c-shadow: rgba(0, 0, 0, 0.15);
+
+    /* Variables de layout */
+    --total-columns: 240; /* 20h * 12 slots de 5min */
+    --track-header-width: 100px;
+    --hour-block-count: 20; /* De 04:00 à 24:00 */
+}
+
+.dark-mode {
+    /* Thème Sombre */
+    --c-bg-body: #1a1a1a;
+    --c-bg-container: #2a2a2a;
+    --c-bg-header: #343a40;
+    --c-bg-alt: #212529;
+    --c-text-primary: #e0e0e0;
+    --c-text-secondary: #adb5bd;
+    --c-border-primary: #555;
+    --c-border-secondary: #444;
+    --c-border-light: #333;
+    --c-accent-primary: #0d6efd;
+    --c-accent-primary-hover: #3385fd;
+    --c-btn-success: #198754;
+    --c-btn-success-hover: #157347;
+    --c-btn-danger: #dc3545;
+    --c-btn-danger-hover: #bb2d3b;
+    --c-btn-warning: #ffc107;
+    --c-btn-warning-hover: #ffca2c;
+    --c-btn-secondary: #6c757d;
+    --c-btn-secondary-hover: #5c636a;
+    --c-text-on-accent: #fff;
+    --c-text-on-warning: #000;
+    --c-modal-overlay: rgba(0, 0, 0, 0.7);
+    --c-shadow: rgba(255, 255, 255, 0.1);
+}

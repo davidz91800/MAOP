@@ -1,0 +1,28 @@
+/* FILE: style-base-new.css */
+
+body {
+    font-family: Segoe UI, Arial, sans-serif;
+    background-color: var(--c-bg-body);
+    color: var(--c-text-primary);
+    margin: 0;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+/* Pendant le redimensionnement, on change le curseur sur toute la page et on empêche la sélection de texte */
+body.is-resizing {
+    cursor: ew-resize !important;
+    user-select: none; /* Empêche la sélection de texte pendant le drag */
+}
+
+/* --- STYLES SPÉCIFIQUES AU MODE IMPRESSION/PDF --- */
+.printing-mode #planning-header {
+    display: none;
+}
+.printing-mode #header-actions {
+    visibility: hidden;
+}
+.printing-mode .planning-container {
+    width: 100%;
+    margin: 0;
+    border: none;
+}
