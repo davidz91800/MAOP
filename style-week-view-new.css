@@ -1,0 +1,110 @@
+/* FILE: style-week-view-new.css */
+
+.view-selector-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    background-color: var(--c-bg-header);
+    padding: 5px;
+    border-radius: 8px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.view-btn {
+    padding: 8px 20px;
+    border: none;
+    background-color: transparent;
+    color: var(--c-text-secondary);
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.view-btn.active {
+    background-color: var(--c-bg-container);
+    color: var(--c-accent-primary);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.week-view-container .week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: auto 1fr;
+    height: calc(100vh - 250px); /* Adjust height as needed */
+}
+
+.week-day-header {
+    text-align: center;
+    padding: 10px 5px;
+    background-color: var(--c-bg-header);
+    border-bottom: 2px solid var(--c-border-primary);
+    border-left: 1px solid var(--c-border-secondary);
+    font-size: 1.1em;
+}
+
+.week-day-header:first-child {
+    border-left: none;
+}
+
+.week-day-header.today {
+    background-color: var(--c-btn-success);
+    color: var(--c-text-on-accent);
+}
+.week-day-header.today strong {
+    color: var(--c-text-on-accent);
+}
+
+.week-day-header strong {
+    display: block;
+    font-size: 0.9em;
+    color: var(--c-text-secondary);
+}
+
+.week-day-header span {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.week-day-column {
+    border-left: 1px solid var(--c-border-secondary);
+    padding: 5px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.week-day-column:first-child {
+    border-left: none;
+}
+
+.week-task {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,0.2);
+    color: var(--c-text-on-accent);
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+}
+
+.week-task:hover {
+    transform: scale(1.03);
+    z-index: 10;
+    box-shadow: 0 4px 10px var(--c-shadow);
+}
+
+.week-task-time {
+    font-size: 0.8em;
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+.week-task-title {
+    display: block;
+    font-size: 1em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
