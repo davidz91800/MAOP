@@ -3,8 +3,13 @@
 
 /** Fonction principale qui redessine tout le planning. */
 function renderAll() {
-    renderHeader();
-    renderPlanning();
+    if (isWeekView) {
+        renderWeek();
+    } else {
+        renderHeader();
+        renderPlanning();
+        updateNightOverlay();
+    }
 }
 
 /** Met à jour l'affichage de la date et de la grille horaire. */
@@ -107,21 +112,64 @@ function renderCalendar() {
 }
 
 /** Crée et affiche toutes les pistes et les tâches du planning. */
-function renderPlanning() {
-    const tracksContainer = document.getElementById('tracks-container');
-    tracksContainer.innerHTML = '';
+function renderPlanning(targetDate = currentDate, container = document.getElementById('tracks-container')) {
+    container.innerHTML = '';
 
-    const tasksForToday = tasksData.filter(task => {
+    const tasksForDay = tasksData.filter(task => {
         const taskStart = new Date(task.startDateTime);
-        return taskStart.toDateString() === currentDate.toDateString();
+        return taskStart.toDateString() === targetDate.toDateString();
     });
 
     const trackOrder = ['FLIGHT', 'AREA', 'C2 / ISR', 'AAR', 'AIR / AIR', 'GROUND / AIR', 'GROUND ORDER', 'PREPARATION'];
     trackOrder.forEach(trackName => {
-        const tasksInTrack = tasksForToday.filter(t => t.type === trackName);
-        renderTrack(tracksContainer, trackName, tasksInTrack);
+        const tasksInTrack = tasksForDay.filter(t => t.type === trackName);
+        renderTrack(container, trackName, tasksInTrack);
     });
-    updateNightOverlay();
+}
+
+/** Affiche une semaine complète avec 7 jours côte à côte. */
+function renderWeek() {
+    const dateDisplay = document.getElementById('date-display');
+    const hourGridWrapper = document.getElementById('hour-grid-wrapper');
+    const tracksContainer = document.getElementById('tracks-container');
+
+    const weekStart = new Date(currentDate);
+    weekStart.setDate(weekStart.getDate() - ((weekStart.getDay() + 6) % 7)); // Lundi
+    const weekEnd = new Date(weekStart);
+    weekEnd.setDate(weekStart.getDate() + 6);
+    const options = { day: 'numeric', month: 'long' };
+    dateDisplay.textContent = `Semaine du ${weekStart.toLocaleDateString('fr-FR', options)} au ${weekEnd.toLocaleDateString('fr-FR', options)}`;
+
+    hourGridWrapper.innerHTML = '';
+    tracksContainer.innerHTML = '';
+
+    for (let i = 0; i < 7; i++) {
+        const dayDate = new Date(weekStart);
+        dayDate.setDate(weekStart.getDate() + i);
+
+        // Création de la grille horaire pour chaque jour
+        const dayGrid = document.createElement('div');
+        dayGrid.className = 'hour-grid';
+        const dayLabel = document.createElement('div');
+        dayLabel.className = 'day-header';
+        const formattedDay = dayDate.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric' });
+        dayLabel.textContent = formattedDay.charAt(0).toUpperCase() + formattedDay.slice(1);
+        dayLabel.style.gridColumn = '1 / -1';
+        dayGrid.appendChild(dayLabel);
+        for (let h = 4; h < 24; h++) {
+            const hourLabel = document.createElement('div');
+            hourLabel.className = 'hour-label';
+            hourLabel.textContent = `${String(h).padStart(2, '0')}:00`;
+            dayGrid.appendChild(hourLabel);
+        }
+        hourGridWrapper.appendChild(dayGrid);
+
+        // Création des pistes pour chaque jour
+        const dayColumn = document.createElement('div');
+        dayColumn.className = 'day-column';
+        renderPlanning(dayDate, dayColumn);
+        tracksContainer.appendChild(dayColumn);
+    }
 }
 
 /** Crée et affiche une seule piste et ses tâches, en gérant les superpositions. */

@@ -49,3 +49,4 @@ let tasksData = [
 let currentDate = new Date();
 let calendarViewDate = new Date();
 let activeTaskId = null;
+let isWeekView = false;
